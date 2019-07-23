@@ -10,7 +10,7 @@ import curlirize from 'axios-curlirize';
 
 var headers = {
     // 'Pragma': 'no-cache',
-    'Origin': 'https://pass.rzd.ru',g
+    'Origin': 'https://pass.rzd.ru',
     // 'Accept-Encodinsg': 'gzip, deflate, br',
     // 'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8,la;q=0.7,bg;q=0.6',
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36',
