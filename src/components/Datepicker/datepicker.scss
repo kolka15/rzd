@@ -1,3 +1,12 @@
 .datepicker {
 
 }
+
+.react-datepicker__input-container {
+  input[type='text'] {
+    width: 120px;
+    height: 30px;
+    padding: 0 10px;
+  }
+}
+

@@ -23,10 +23,25 @@
 .section-wrapper {
   max-width: 1200px;
   margin: auto;
+  &_sm {
+    width: 600px;
+  }
 }
 
 .single-right {
   font-size: 15px;
   font-weight: 100;
   margin: 0 5px;
+}
+
+.validation {
+  box-shadow: 0px 0px 10px #eb0000;
+}
+
+.fetch-error {
+  font-size: 11px;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  color: #eb0000;
 }

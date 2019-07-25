@@ -1,12 +1,11 @@
 .data-view {
   &__directions {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     font-size: 12px;
-
   }
   &__direction {
-    margin: 0 20px;
+    margin-right: 40px;
     transition: all .2s;
     display: flex;
     align-items: center;

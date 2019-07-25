@@ -7,12 +7,15 @@ export class DataProvider extends React.Component {
 
     state = {
         timetable: undefined,
+        datepickerDate: '',
+        validateDestAndTimeWarning: false,
+        fetchError: false,
         requestData: {
             dir: '0',
             tfl: '3',
             code0: '', //Moscow 2000000, Kaluga 2000351
             code1: '',
-            dt0: '26.07.2019',
+            dt0: '',
             checkSeats: '0',
             withoutSeats: 'y',
             version: 'v.2018',
@@ -55,7 +58,14 @@ export class DataProvider extends React.Component {
                             return resp2.json()
                         })
                         .then(myJson => {
-                            this.setState({timetable: myJson.tp[0]})
+                            if (myJson.hasOwnProperty('tp')) {
+                                this.setState({
+                                    timetable: myJson.tp[0],
+                                    fetchError: false
+                                })
+                            } else {
+                                this.setState({fetchError: true})
+                            }
                         })
                 }, 1000)
             })
@@ -63,21 +73,45 @@ export class DataProvider extends React.Component {
 
     changeDestination = (code0, code1) => {
         this.setState({
+            validateDestAndTimeWarning: false,
             requestData: {
                 ...this.state.requestData,
                 code0: code0,
                 code1: code1,
             }
-        }, () => {
-            this.getTimetable()
         })
+    }
+
+    depatureDateSelect = (date) => {
+        this.setState({
+            datepickerDate: date,
+            validateDestAndTimeWarning: false,
+            requestData: {
+                ...this.state.requestData,
+                dt0: date ? date.toLocaleDateString("ru") : null
+            }
+        })
+    }
+
+    onGetTimetable = () => {
+        if (this.state.requestData.code0
+            && this.state.requestData.code1
+            && this.state.requestData.dt0) {
+            this.setState({validateDestAndTimeWarning: false})
+            this.getTimetable()
+        } else {
+            this.setState({validateDestAndTimeWarning: true})
+        }
     }
 
     render() {
         return (
             <DataContext.Provider value={{
                 ...this.state,
-                changeDestination: this.changeDestination
+                onGetTimetable: this.onGetTimetable,
+                changeDestination: this.changeDestination,
+                depatureDateSelect: this.depatureDateSelect,
+
             }}>
                 {this.props.children}
             </DataContext.Provider>
