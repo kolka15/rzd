@@ -1,0 +1,23 @@
+.data-view {
+  &__directions {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+
+  }
+  &__direction {
+    margin: 0 20px;
+    transition: all .2s;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &.active {
+      cursor: auto;
+      color: #517fe6;
+      pointer-events: none;
+    }
+    &:hover {
+      color: #a4c3e6;
+    }
+  }
+}
