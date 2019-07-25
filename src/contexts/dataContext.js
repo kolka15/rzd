@@ -58,7 +58,7 @@ export class DataProvider extends React.Component {
                             return resp2.json()
                         })
                         .then(myJson => {
-                            if (myJson.hasOwnProperty('tp')) {
+                            if (myJson && myJson.hasOwnProperty('tp')) {
                                 this.setState({
                                     timetable: myJson.tp[0],
                                     fetchError: false

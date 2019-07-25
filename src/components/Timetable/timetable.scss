@@ -1,0 +1,9 @@
+.timetable {
+  text-align: left;
+  font-size: 14px;
+  &__row {
+    border-top: 1px solid #fff;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+}
