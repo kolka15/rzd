@@ -1,5 +1,5 @@
-.datepicker {
-
+.react-datepicker {
+  border-radius: 0;
 }
 
 .react-datepicker__input-container {
@@ -10,3 +10,13 @@
   }
 }
 
+.react-datepicker__day {
+  &--weekend {
+    color: #cf0000;
+  }
+
+}
+
+.react-datepicker__day--disabled.react-datepicker__day--weekend {
+  color: #cf9c97;
+}

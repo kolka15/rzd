@@ -9,6 +9,7 @@ export class DataProvider extends React.Component {
         timetable: undefined,
         datepickerDate: '',
         validateDestAndTimeWarning: false,
+        loadingData: false,
         fetchError: false,
         requestData: {
             dir: '0',
@@ -34,6 +35,8 @@ export class DataProvider extends React.Component {
         Object.keys(this.state.requestData).forEach(el => {
             bodyFormData.set(el, this.state.requestData[el]);
         })
+
+        this.setState({loadingData: true})
 
         axios(requestOptions)
             .then(responce => {
@@ -61,12 +64,19 @@ export class DataProvider extends React.Component {
                             if (myJson && myJson.hasOwnProperty('tp')) {
                                 this.setState({
                                     timetable: myJson.tp[0],
-                                    fetchError: false
+                                    fetchError: false,
+                                    loadingData: false
                                 })
                             } else {
-                                this.setState({fetchError: true})
+                                this.setState({
+                                    fetchError: true,
+                                    loadingData: false
+                                })
                             }
                         })
+                        .catch(error=>
+                            console.log(error)
+                        )
                 }, 1000)
             })
     }

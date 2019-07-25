@@ -3,7 +3,12 @@ import React from 'react'
 
 const Spinner = () => {
     return (
-        <div className="loader">Loading...</div>
+        <div className="lds-ellipsis mx-3">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     )
 }
 

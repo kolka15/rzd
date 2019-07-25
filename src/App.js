@@ -8,6 +8,7 @@ import DestinationSwitcher from "./components/DestinationSwitcher/DestinationSwi
 import Datepicker from "./components/Datepicker/Datepicker"
 import {Btn1} from "./components/Buttons/Buttons"
 import Timetable from "./components/Timetable/Timetable"
+import {Spinner} from "./components/Spinner/Spinner"
 
 function App() {
     return (
@@ -24,6 +25,9 @@ function App() {
                                     <span className='fetch-error'>Сервер вернул ошибку</span>
                                 }
                                 <Btn1 text='Расписание' clickHandler={context.onGetTimetable}/>
+                                {
+                                    context.loadingData && <div className='spinner-position'><Spinner/></div>
+                                }
                             </div>
                             {
                                 context.timetable && context.timetable.hasOwnProperty('list') &&
