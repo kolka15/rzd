@@ -16,4 +16,13 @@
     box-shadow: inset 1px 1px 2px #000;
     background: #5252dd;
   }
+  &_green {
+    background: #10b445;
+    &:active {
+      outline: none;
+      box-shadow: inset 1px 1px 2px #000;
+      background: #109039;
+    }
+  }
 }
+

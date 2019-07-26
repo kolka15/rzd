@@ -4,11 +4,8 @@ import './App.scss';
 import IndexContext from "./contexts/indexContext"
 import {DataContext} from "./contexts/dataContext"
 
-import DestinationSwitcher from "./components/DestinationSwitcher/DestinationSwitcher"
-import Datepicker from "./components/Datepicker/Datepicker"
-import {Btn1} from "./components/Buttons/Buttons"
-import Timetable from "./components/Timetable/Timetable"
-import {Spinner} from "./components/Spinner/Spinner"
+import TrackWindow from "./components/TrackWindow/TrackWindow"
+import MainWindow from "./components/MainWindow/MainWindow"
 
 function App() {
     return (
@@ -17,21 +14,10 @@ function App() {
                 {context => (
                     <div className="App">
                         <section className="App-header">
-                            <DestinationSwitcher/>
-                            <Datepicker/>
-                            <div className='text-left section-wrapper section-wrapper_sm position-relative'>
-                                {
-                                    context.fetchError &&
-                                    <span className='fetch-error'>Сервер вернул ошибку</span>
-                                }
-                                <Btn1 text='Расписание' clickHandler={context.onGetTimetable}/>
-                                {
-                                    context.loadingData && <div className='spinner-position'><Spinner/></div>
-                                }
-                            </div>
                             {
-                                context.timetable && context.timetable.hasOwnProperty('list') &&
-                                <Timetable/>
+                                context.trackedTrainNumber
+                                ? <TrackWindow/>
+                                : <MainWindow/>
                             }
                         </section>
                     </div>

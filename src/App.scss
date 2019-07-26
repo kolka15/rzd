@@ -1,6 +1,7 @@
 .App {
   text-align: center;
-  padding-bottom: 100px;
+
+  height: 100%;
 }
 
 .App-logo {
@@ -12,9 +13,11 @@
 .App-header {
   flex-direction: column;
   padding-top: 50px;
+  padding-bottom: 100px;
   align-items: center;
   justify-content: center;
   color: white;
+  height: 100%;
 }
 
 .App-link {
@@ -49,4 +52,21 @@
 
 .submit-row {
   height: 100px;
+}
+
+.booked {
+  color: #ff4343;
+}
+
+.close-btn {
+  font-size: 80px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-weight: 100;
+  cursor: pointer;
+  transition: all .2s;
+  &:hover {
+    color: #ff4343;
+  }
 }

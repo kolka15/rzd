@@ -11,6 +11,10 @@ export class DataProvider extends React.Component {
         validateDestAndTimeWarning: false,
         loadingData: false,
         fetchError: false,
+        trackedTrainNumber: undefined,
+        trackedTrainTime: undefined,
+        trackTimerAmount: 5,
+        ticketsFound: false,
         requestData: {
             dir: '0',
             tfl: '3',
@@ -74,7 +78,7 @@ export class DataProvider extends React.Component {
                                 })
                             }
                         })
-                        .catch(error=>
+                        .catch(error =>
                             console.log(error)
                         )
                 }, 1000)
@@ -114,6 +118,60 @@ export class DataProvider extends React.Component {
         }
     }
 
+    trackTicket = (selectedTrain) => {
+
+        let timeout;
+
+        const checkSeats = () => {
+            this.getTimetable()
+            let trackedTrain = this.state.timetable.list.filter(train =>
+                train.number === selectedTrain.number
+                && train.serviceCategories.length
+            )
+            if (trackedTrain.length > 0) {
+                this.setState({
+                    ticketsFound: true
+                })
+            } else {
+                this.setState({
+                    ticketsFound: false
+                })
+            }
+
+            if (this.state.trackedTrainNumber) {
+                timeout = setTimeout(() => {
+                    checkSeats()
+                    console.log(
+                        ' check seats', selectedTrain,
+                    );
+                }, this.state.trackTimerAmount * 1000)
+            } else {
+                console.log (
+                    ' clearTimeout'
+                );
+                clearTimeout(timeout)
+            }
+
+            console.log(
+                'timeout ', timeout,
+            );
+        }
+
+        this.setState({
+            trackedTrainNumber: selectedTrain.number2,
+            trackedTrainTime: selectedTrain.time0
+        }, () => checkSeats())
+
+
+    }
+
+    closeTracking = () => {
+        this.setState({
+            trackedTrainNumber: undefined,
+            ticketsFound: false,
+        })
+    }
+
     render() {
         return (
             <DataContext.Provider value={{
@@ -121,6 +179,8 @@ export class DataProvider extends React.Component {
                 onGetTimetable: this.onGetTimetable,
                 changeDestination: this.changeDestination,
                 depatureDateSelect: this.depatureDateSelect,
+                trackTicket: this.trackTicket,
+                closeTracking: this.closeTracking,
 
             }}>
                 {this.props.children}
