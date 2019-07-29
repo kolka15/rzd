@@ -35,7 +35,7 @@ export class DataProvider extends React.Component {
         let bodyFormData = new FormData();
         let rid = undefined
         let requestOptions = {
-            url: '/timetable/public/ru?layer_id=5827',
+            url: 'https://pass.rzd.ru/timetable/public/ru?layer_id=5827',
             method: 'POST',
             data: bodyFormData,
         }
@@ -50,7 +50,7 @@ export class DataProvider extends React.Component {
             .then(responce => {
                 rid = responce.data.RID
                 setTimeout(() => {
-                    fetch("/timetable/public/ru?layer_id=5827", {
+                    fetch("https://pass.rzd.ru/timetable/public/ru?layer_id=5827", {
                         "credentials": "include",
                         "headers": {
                             "accept": "application/json, text/javascript, */*; q=0.01",
