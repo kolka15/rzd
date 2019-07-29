@@ -3,6 +3,10 @@ import axios from "axios"
 
 export const DataContext = React.createContext()
 
+let timeout
+let flashInteval
+let flashTimeout
+
 export class DataProvider extends React.Component {
 
     state = {
@@ -119,9 +123,6 @@ export class DataProvider extends React.Component {
     }
 
     trackTicket = (selectedTrain) => {
-
-        let timeout;
-
         const checkSeats = () => {
             this.getTimetable()
             let trackedTrain = this.state.timetable.list.filter(train =>
@@ -132,43 +133,43 @@ export class DataProvider extends React.Component {
                 this.setState({
                     ticketsFound: true
                 })
+
+                flashInteval = setInterval(() => {
+                    document.title = "************";
+                    flashTimeout = setTimeout(() => {
+                        document.title = "!!! БИЛЕТ НАЙДЕН !!!";
+                    }, 400)
+                }, 800)
+
             } else {
                 this.setState({
                     ticketsFound: false
                 })
             }
 
-            if (this.state.trackedTrainNumber) {
-                timeout = setTimeout(() => {
-                    checkSeats()
-                    console.log(
-                        ' check seats', selectedTrain,
-                    );
-                }, this.state.trackTimerAmount * 1000)
-            } else {
-                console.log (
-                    ' clearTimeout'
-                );
-                clearTimeout(timeout)
-            }
+            timeout = setTimeout(() => {
+                checkSeats()
+            }, this.state.trackTimerAmount * 1000)
 
-            console.log(
-                'timeout ', timeout,
-            );
         }
 
         this.setState({
             trackedTrainNumber: selectedTrain.number2,
             trackedTrainTime: selectedTrain.time0
         }, () => checkSeats())
-
-
     }
 
     closeTracking = () => {
         this.setState({
             trackedTrainNumber: undefined,
             ticketsFound: false,
+        }, () => {
+            clearTimeout(timeout)
+            clearInterval(flashInteval)
+            clearTimeout(flashTimeout)
+            setTimeout(() => {
+                document.title = "Отслеживание билетов";
+            }, 450)
         })
     }
 
