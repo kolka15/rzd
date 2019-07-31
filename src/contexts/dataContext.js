@@ -35,7 +35,7 @@ export class DataProvider extends React.Component {
         let bodyFormData = new FormData();
         let rid = undefined
         let requestOptions = {
-            url: 'https://pass.rzd.ru/timetable/public/ru?layer_id=5827',
+            url: '/timetable/public/ru?layer_id=5827',
             method: 'POST',
             data: bodyFormData,
         }
@@ -50,7 +50,7 @@ export class DataProvider extends React.Component {
             .then(responce => {
                 rid = responce.data.RID
                 setTimeout(() => {
-                    fetch("https://pass.rzd.ru/timetable/public/ru?layer_id=5827", {
+                    fetch("/timetable/public/ru?layer_id=5827", {
                         "credentials": "include",
                         "headers": {
                             "accept": "application/json, text/javascript, */*; q=0.01",
@@ -89,27 +89,28 @@ export class DataProvider extends React.Component {
             })
     }
 
-    changeDestination = (code0, code1) => {
-        this.setState({
-            validateDestAndTimeWarning: false,
-            requestData: {
-                ...this.state.requestData,
-                code0: code0,
-                code1: code1,
-            }
-        })
-    }
+    changeDestination = (code0, code1) =>
+        this.setState(prevState => ({
+                validateDestAndTimeWarning: false,
+                requestData: {
+                    ...prevState.requestData,
+                    code0: code0,
+                    code1: code1,
+                }
+            })
+        )
 
-    depatureDateSelect = (date) => {
-        this.setState({
-            datepickerDate: date,
-            validateDestAndTimeWarning: false,
-            requestData: {
-                ...this.state.requestData,
-                dt0: date ? date.toLocaleDateString("ru") : null
-            }
-        })
-    }
+    depatureDateSelect = date =>
+        this.setState(prevState => ({
+                datepickerDate: date,
+                validateDestAndTimeWarning: false,
+                requestData: {
+                    ...prevState.requestData,
+                    dt0: date ? date.toLocaleDateString("ru") : null
+                }
+            })
+        )
+
 
     onGetTimetable = () => {
         if (this.state.requestData.code0
@@ -122,7 +123,7 @@ export class DataProvider extends React.Component {
         }
     }
 
-    trackTicket = (selectedTrain) => {
+    trackTicket = selectedTrain => {
         const checkSeats = () => {
             this.getTimetable()
             let trackedTrain = this.state.timetable.list.filter(train =>
@@ -163,14 +164,13 @@ export class DataProvider extends React.Component {
         this.setState({
             trackedTrainNumber: undefined,
             ticketsFound: false,
-        }, () => {
-            clearTimeout(timeout)
-            clearInterval(flashInteval)
-            clearTimeout(flashTimeout)
-            setTimeout(() => {
-                document.title = "Отслеживание билетов";
-            }, 450)
         })
+        clearTimeout(timeout)
+        clearInterval(flashInteval)
+        clearTimeout(flashTimeout)
+        setTimeout(() => {
+            document.title = "Отслеживание билетов";
+        }, 450)
     }
 
     render() {

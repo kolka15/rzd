@@ -39,16 +39,12 @@ export default function Timetable() {
                                 </div>
                                 <div className="d-flex align-items-end">
 
-                                    {/*{
+                                    {
                                         !train.serviceCategories.length &&
                                         <div>
                                             <Btn1Green text='Включить отслеживание' clickHandler={()=>context.trackTicket(train)}/>
                                         </div>
-                                    }*/}
-                                    <div>
-                                        <Btn1Green text='Включить отслеживание' clickHandler={()=>context.trackTicket(train)}/>
-                                    </div>
-
+                                    }
 
                                 </div>
                             </div>
