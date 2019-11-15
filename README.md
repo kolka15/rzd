@@ -1,2 +1,1 @@
-Railway ticket tracking.
-Browser title flash notification.
+Railway ticket tracking with browser title flash notification.
